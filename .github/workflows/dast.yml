@@ -22,6 +22,27 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    - name: OWASP ZAP Full Scan
+    # You may pin to the exact commit or the version.
+    # uses: zaproxy/action-full-scan@1f35897c4c11af6b1203c36b67a5ba99c3c5b5f4
+    uses: zaproxy/action-baseline@v0.6.1
+    with:
+      # GitHub Token to create issues in the repository
+      token: # optional, default is ${{ github.token }}
+      # Target URL
+      target: https://preview.owasp-juice.shop'
+      rules_file_name: '.zap/rules.tsv'
+      # Relative path of the ZAP configuration file
+      # The Docker file to be executed
+      docker_name: # default is owasp/zap2docker-stable
+      # Additional command line options
+      cmd_options: '-a -j'
+      # The title for the GitHub issue to be created
+      issue_title: # optional, default is ZAP Full Scan Report
+      # The action status will be set to fail if ZAP identifies any alerts during the full scan
+      fail_action: # optional
+      # Whether Github issues should be created or not
+      allow_issue_writing: # optional, default is true
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
